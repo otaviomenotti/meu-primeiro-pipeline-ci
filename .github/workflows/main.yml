@@ -1,0 +1,54 @@
+name: Pipeline de CI/CD - Meu Primeiro Robô
+
+# Quando este workflow deve ser executado?
+on:
+  push:
+    branches: [ main ]
+
+  pull_request:
+    branches: [ main ]
+
+# Definindo os trabalhos (jobs) que serão executados
+jobs:
+  # Job 1: Verificações básicas
+  verificacoes-basicas:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 1. Baixando o código do repositório
+        uses: actions/checkout@v4
+
+      - name: 2. Verificando estrutura do projeto
+        run: |
+          echo "Listando arquivos do projeto:"
+          ls -la
+
+          echo ""
+          echo "Verificando se arquivos essenciais existem:"
+
+          if [ -f "app.js" ]; then
+            echo "app.js encontrado"
+          else
+            echo "app.js não encontrado"
+            exit 1
+          fi
+
+      - name: 3. Configurando Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: 4. Executando a aplicação
+        run: |
+          echo "Iniciando a aplicação..."
+          node app.js
+          echo "Aplicação executada com sucesso!"
+
+      - name: 5. Mensagem de sucesso
+        run: |
+          echo "Parabéns! Seu primeiro pipeline de CI está funcionando!"
+          echo "Estatísticas da execução:"
+          echo "   - Repositório: ${{ github.repository }}"
+          echo "   - Branch: ${{ github.ref_name }}"
+          echo "   - Commit: ${{ github.sha }}"
+          echo "   - Autor: ${{ github.actor }}"
