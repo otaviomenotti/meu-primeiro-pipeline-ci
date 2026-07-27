@@ -1,0 +1,91 @@
+Criando o arquivo de workflow
+ConteÃºdo do arquivo:
+
+name: Pipeline de CI/CD - Meu Primeiro RobÃ´
+
+# Quando este workflow deve ser executado?
+
+on:
+
+  push:
+
+    branches: [ main ]
+
+  pull_request:
+
+    branches: [ main ]
+
+# Definindo os trabalhos (jobs) que serÃ£o executados
+
+jobs:
+
+  # Job 1: VerificaÃ§Ãµes bÃ¡sicas
+
+  verificacoes-basicas:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: 1. Baixando o cÃ³digo do repositÃ³rio
+
+      uses: actions/checkout@v4      
+
+    - name: 2. Verificando estrutura do projeto
+
+      run: |
+
+        echo "Listando arquivos do projeto:"
+
+        ls -la
+
+        echo ""
+
+        echo "Verificando se arquivos essenciais existem:"
+
+        if [ -f "app.js" ]; then
+
+          echo "app.js encontrado"
+
+        else
+
+          echo "app.js nÃ£o encontrado"
+
+          exit 1
+
+        fi
+
+    - name: 3. Configurando Node.js
+
+      uses: actions/setup-node@v4
+
+      with:
+
+        node-version: '18'
+
+    - name: 4. Executando a aplicaÃ§Ã£o
+
+      run: |
+
+        echo "Iniciando a aplicaÃ§Ã£o..."
+
+        node app.js
+
+        echo "AplicaÃ§Ã£o executada com sucesso!"        
+
+    - name: 5. Mensagem de sucesso
+
+      run: |
+
+        echo "ParabÃ©ns! Seu primeiro pipeline de CI estÃ¡ funcionando!"
+
+        echo "EstatÃ­sticas da execuÃ§Ã£o:"
+
+        echo "   - RepositÃ³rio: ${{ github.repository }}"
+
+        echo "   - Branch: ${{ github.ref_name }}"
+
+        echo "   - Commit: ${{ github.sha }}"
+
+        echo "   - Autor: ${{ github.actor }}"
+----------------
