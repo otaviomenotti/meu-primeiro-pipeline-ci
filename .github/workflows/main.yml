@@ -1,5 +1,4 @@
-Criando o arquivo de workflow
-ConteÃºdo do arquivo:
+
 
 name: Pipeline de CI/CD - Meu Primeiro RobÃ´
 
@@ -88,4 +87,3 @@ jobs:
         echo "   - Commit: ${{ github.sha }}"
 
         echo "   - Autor: ${{ github.actor }}"
-----------------
