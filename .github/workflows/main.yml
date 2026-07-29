@@ -52,8 +52,8 @@ jobs:
           echo "   - Branch: ${{ github.ref_name }}"
           echo "   - Commit: ${{ github.sha }}"
           echo "   - Autor: ${{ github.actor }}"
-     
+          
       - name: 6. novo teste
         run: |
-         echo " Iniciando bateria de testes..."
-         node test.js
+          echo "Iniciando bateria de testes..."
+          node test.js
